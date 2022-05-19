@@ -1,5 +1,10 @@
 package com.user.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -7,10 +12,13 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "USER")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userID;
 
     @NotNull(message = "Username field should not blank")
@@ -36,7 +44,9 @@ public class User
     @NotNull(message = "Role field should not blank")
     @NotBlank(message = "Role field is required !!")
     @Size(min = 2, max = 20 , message = "Role should be between 2 - 20 characters !!")
-    @Default
+    @Value("internal")
     private String role;
+
+    private long projectID;
 
 }
