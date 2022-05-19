@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class ProjectRepositoryImpl implements ProjectRepository {
 
-    //    private static final String INSERT_PROJECT_QUERY = "INSERT INTO PROJECT(projectid,projectstartdate,projectenddate,budgetallotted,budgetused,typeofproject) values(?,?,?,?,?,?)";
+    //private static final String INSERT_PROJECT_QUERY = "INSERT INTO PROJECT(projectid,projectstartdate,projectenddate,budgetallotted,budgetused,typeofproject) values(?,?,?,?,?,?)";
     private static final String INSERT_PROJECT_QUERY = "INSERT INTO PROJECT(projectid,projectstartdate,projectenddate,budgetallotted,budgetused) values(?,?,?,?,?)";
     private static final String UPDATE_PROJECT_BY_ID_QUERY = "UPDATE PROJECT SET budgetused=? WHERE projectid=?";
     private static final String GET_PROJECT_BY_ID_QUERY = "SELECT * FROM PROJECT WHERE projectid=?";
@@ -32,7 +32,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 //        if (update == 1) {
 //            System.out.println("Project is created..");
 //        }
-        getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed(), project.getTypeOfProject());
+        getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed());
+//        getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed(), project.getTypeOfProject());
         return project;
     }
 
@@ -51,8 +52,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                     rs.getDate("projectStartDate"),
                     rs.getDate("projectEndDate"),
                     rs.getInt("budgetAllotted"),
-                    rs.getInt("budgetUsed"),
-                    rs.getString("TypeOfProject.CLIENT"));
+                    rs.getInt("budgetUsed"));
+            //rs.getString("TypeOfProject.CLIENT"));
         }, projectId);
     }
 
@@ -65,8 +66,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
                     rs.getDate("projectStartDate"),
                     rs.getDate("projectEndDate"),
                     rs.getInt("budgetAllotted"),
-                    rs.getInt("budgetUsed"),
-                    rs.getString("TypeOfProject.CLIENT"));
+                    rs.getInt("budgetUsed"));
+            //rs.getString("TypeOfProject.CLIENT"));
         });
     }
 

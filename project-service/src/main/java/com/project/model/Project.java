@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -32,10 +30,10 @@ public class Project {
 
     private int budgetUsed;
 
-    @Enumerated(EnumType.STRING)
-    private TypeOfProject typeOfProject;
-
-    public Project(long projectID, java.sql.Date projectStartDate, java.sql.Date projectEndDate, int budgetAllotted, int budgetUsed, String string) {
-    }
+//    @Enumerated(EnumType.STRING)
+//    private TypeOfProject typeOfProject;
+//
+//    public Project(long projectID, java.sql.Date projectStartDate, java.sql.Date projectEndDate, int budgetAllotted, int budgetUsed, String string) {
+//    }
 }
 
