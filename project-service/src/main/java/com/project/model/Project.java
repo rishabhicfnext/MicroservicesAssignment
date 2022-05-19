@@ -4,20 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Project {
 
-    @Id
     private Long projectID;
 
     @Temporal(value = TemporalType.DATE)
@@ -35,5 +35,7 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private TypeOfProject typeOfProject;
 
+    public Project(long projectID, java.sql.Date projectStartDate, java.sql.Date projectEndDate, int budgetAllotted, int budgetUsed, String string) {
+    }
 }
 

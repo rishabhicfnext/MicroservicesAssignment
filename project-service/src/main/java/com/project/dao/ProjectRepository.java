@@ -4,13 +4,15 @@ import com.project.model.Project;
 
 import java.util.List;
 
-public interface ProjectDao {
+public interface ProjectRepository {
 
-    void createProject(Project project);
+    Project createProject(Project project);
+
+    Project updateProject(Project project);
 
     Project fetchProjectById(Long projectId);
 
     List<Project> fetchAllProjects();
 
-    void deleteProjectById(Long projectId);
+    String deleteProjectById(Long projectId);
 }
