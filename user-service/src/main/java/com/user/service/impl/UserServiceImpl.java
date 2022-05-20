@@ -19,43 +19,41 @@ public class UserServiceImpl implements UserService {
 //    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(User user)
-    {
+    public User createUser(User user) {
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public void updateUser(User user)
-    {
+    public void updateUser(User user) {
         userRepository.saveAndFlush(user);
     }
 
     @Override
-    public void deleteUser(long userID)
-    {
+    public void deleteUser(long userID) {
         userRepository.deleteById(userID);
     }
 
     @Override
-    public User getUser(long userID)
-    {
-        Optional<User> op=userRepository.findById(userID);
-        User e=op.get();
+    public User getUser(long userID) {
+        Optional<User> op = userRepository.findById(userID);
+        User e = op.get();
         return e;
     }
 
     @Override
-    public List<User> getUsers()
-    {
-        List<User> allUsers=userRepository.findAll();
-        //System.out.println("Getting data : "+allUsers);
+    public List<User> getUsers() {
+        List<User> allUsers = userRepository.findAll();
         return allUsers;
     }
 
     @Override
-    public boolean isUserExist(long userID)
-    {
+    public boolean isUserExist(long userID) {
         return userRepository.existsById(userID);
+    }
+
+    @Override
+    public int isUserExistByOfficeID(String officeID) {
+        return userRepository.existsByOfficeID(officeID);
     }
 }

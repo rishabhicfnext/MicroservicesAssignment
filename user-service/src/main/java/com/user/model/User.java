@@ -15,15 +15,15 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User
-{
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userID;
 
     @NotNull(message = "Username field should not blank")
     @NotBlank(message = "Username field is required !!")
-    @Size(min = 2, max = 20 , message = "Username should be between 2 - 20 characters !!")
+    @Size(min = 2, max = 20, message = "Username should be between 2 - 20 characters !!")
     private String username;
 
     @NotNull(message = "Password field should not blank")
@@ -33,20 +33,25 @@ public class User
 
     @NotNull(message = "Address field should not blank")
     @NotBlank(message = "Address field is required !!")
-    @Size(min = 2, max = 20 , message = "Address should be between 2 - 20 characters !!")
+    @Size(min = 2, max = 20, message = "Address should be between 2 - 20 characters !!")
     private String address;
 
     @NotNull(message = "Company field should not blank")
     @NotBlank(message = "Company field is required !!")
-    @Size(min = 2, max = 20 , message = "Company should be between 2 - 20 characters !!")
+    @Size(min = 2, max = 20, message = "Company should be between 2 - 20 characters !!")
     private String company;
 
     @NotNull(message = "Role field should not blank")
     @NotBlank(message = "Role field is required !!")
-    @Size(min = 2, max = 20 , message = "Role should be between 2 - 20 characters !!")
+    @Size(min = 2, max = 20, message = "Role should be between 2 - 20 characters !!")
     @Value("internal")
     private String role;
 
     private long projectID;
+
+    @NotNull(message = "OfficeID field should not blank")
+    @NotBlank(message = "OfficeID field is required !!")
+    @Size(min = 2, max = 20, message = "OfficeID should be between 2 - 20 characters !!")
+    private String officeID;
 
 }

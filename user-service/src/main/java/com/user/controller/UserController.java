@@ -1,5 +1,6 @@
 package com.user.controller;
 
+import com.user.exception.UserAlreadyExistException;
 import com.user.exception.UserNotFoundException;
 import com.user.model.User;
 import com.user.service.impl.UserServiceImpl;
@@ -19,8 +20,13 @@ public class UserController {
 
     @PostMapping("/createuser")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
-        user = userService.createUser(user);
-        return new ResponseEntity<Object>("User is created successfully " + user.toString(), HttpStatus.CREATED);
+        int isExist = userService.isUserExistByOfficeID(user.getOfficeID());
+        if (isExist != 0) {
+            throw new UserAlreadyExistException();
+        } else {
+            user = userService.createUser(user);
+            return new ResponseEntity<Object>(user, HttpStatus.CREATED);
+        }
     }
 
     @PutMapping("/updateuser/{userID}")
@@ -29,7 +35,7 @@ public class UserController {
         if (isExist) {
             user.setUserID(userID);
             userService.updateUser(user);
-            return new ResponseEntity<Object>("User is updated successfully " + user.toString(), HttpStatus.OK);
+            return new ResponseEntity<Object>("User Updated successfully : \n" + user, HttpStatus.OK);
         } else {
             throw new UserNotFoundException();
         }
@@ -39,8 +45,9 @@ public class UserController {
     public ResponseEntity<Object> deleteUser(@PathVariable("userID") long userID) {
         boolean isExist = userService.isUserExist(userID);
         if (isExist) {
+            User user = userService.getUser(userID);
             userService.deleteUser(userID);
-            return new ResponseEntity<Object>("User Deleted successfully with ID : " + userID, HttpStatus.GONE);
+            return new ResponseEntity<Object>(user, HttpStatus.GONE);
         } else {
             throw new UserNotFoundException();
         }
@@ -51,7 +58,7 @@ public class UserController {
         boolean isExist = userService.isUserExist(userID);
         if (isExist) {
             User user = userService.getUser(userID);
-            return new ResponseEntity<Object>("User : " + user.toString(), HttpStatus.OK);
+            return new ResponseEntity<Object>(user, HttpStatus.OK);
         } else {
             throw new UserNotFoundException();
         }
@@ -60,7 +67,11 @@ public class UserController {
     @GetMapping("/getallusers")
     public ResponseEntity<Object> getAllUsers() {
         List<User> userList = userService.getUsers();
-        return new ResponseEntity<Object>(userList.toString(), HttpStatus.OK);
+        if (userList.isEmpty()) {
+            throw new UserNotFoundException();
+        } else {
+            return new ResponseEntity<Object>(userList, HttpStatus.OK);
+        }
     }
 
 }
