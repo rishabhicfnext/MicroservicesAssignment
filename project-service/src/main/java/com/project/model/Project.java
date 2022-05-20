@@ -7,14 +7,16 @@ import lombok.ToString;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Project {
+public class Project implements Serializable {
 
     private Long projectID;
 
@@ -30,7 +32,17 @@ public class Project {
 
     private int budgetUsed;
 
-//    @Enumerated(EnumType.STRING)
+    @NotEmpty(message = "Type of Project can't be empty")
+    @NotNull(message = "Type of Project can't be null")
+    private String typeOfProject;
+
+    @NotEmpty(message = "Project name can't be empty")
+    @NotNull(message = "Project name can't be null")
+    private String projectName;
+
+    private long userID;
+
+//    @Enumerated(EnumType.STRING)s
 //    private TypeOfProject typeOfProject;
 //
 //    public Project(long projectID, java.sql.Date projectStartDate, java.sql.Date projectEndDate, int budgetAllotted, int budgetUsed, String string) {

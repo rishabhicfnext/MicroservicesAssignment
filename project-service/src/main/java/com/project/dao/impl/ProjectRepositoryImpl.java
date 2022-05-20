@@ -1,6 +1,7 @@
 package com.project.dao.impl;
 
 import com.project.dao.ProjectRepository;
+import com.project.dao.ProjectRowMapper;
 import com.project.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,8 +12,7 @@ import java.util.List;
 @Repository
 public class ProjectRepositoryImpl implements ProjectRepository {
 
-    //private static final String INSERT_PROJECT_QUERY = "INSERT INTO PROJECT(projectid,projectstartdate,projectenddate,budgetallotted,budgetused,typeofproject) values(?,?,?,?,?,?)";
-    private static final String INSERT_PROJECT_QUERY = "INSERT INTO PROJECT(projectid,projectstartdate,projectenddate,budgetallotted,budgetused) values(?,?,?,?,?)";
+    private static final String INSERT_PROJECT_QUERY = "INSERT INTO PROJECT(projectid,projectstartdate,projectenddate,budgetallotted,budgetused,typeofproject,projectname,userid) values(?,?,?,?,?,?,?,?)";
     private static final String UPDATE_PROJECT_BY_ID_QUERY = "UPDATE PROJECT SET budgetused=? WHERE projectid=?";
     private static final String GET_PROJECT_BY_ID_QUERY = "SELECT * FROM PROJECT WHERE projectid=?";
     private static final String DELETE_PROJECT_BY_ID_QUERY = "DELETE FROM PROJECT WHERE projectid=?";
@@ -27,13 +27,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public Project createProject(Project project) {
-//        String SQL = "INSERT INTO project(project_id, project_start_date, project_end_date, budget_allotted, budget_used, type_of_project) VALUES (?,?,?,?,?,?)";
-//        int update = getJdbcTemplate().update(SQL, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed(), project.getTypeOfProject());
-//        if (update == 1) {
-//            System.out.println("Project is created..");
-//        }
-        getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed());
-//        getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed(), project.getTypeOfProject());
+        getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed(), project.getTypeOfProject(), project.getProjectName(), project.getUserID());
         return project;
     }
 
@@ -45,30 +39,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public Project fetchProjectById(Long projectId) {
-//        String SQL = "SELECT * FROM project WHERE project_id = ?";
-//        return getJdbcTemplate().queryForObject(SQL, new ProjectRowMapper(), projectId);
-        return getJdbcTemplate().queryForObject(GET_PROJECT_BY_ID_QUERY, (rs, rowNum) -> {
-            return new Project(rs.getLong("projectID"),
-                    rs.getDate("projectStartDate"),
-                    rs.getDate("projectEndDate"),
-                    rs.getInt("budgetAllotted"),
-                    rs.getInt("budgetUsed"));
-            //rs.getString("TypeOfProject.CLIENT"));
-        }, projectId);
+        return getJdbcTemplate().queryForObject(GET_PROJECT_BY_ID_QUERY, new ProjectRowMapper(), projectId);
     }
 
     @Override
     public List<Project> fetchAllProjects() {
-//        String SQL = "SELECT * FROM project";
-//        return getJdbcTemplate().query(SQL, new ProjectRowMapper());
-        return getJdbcTemplate().query(GET_PROJECTS_QUERY, (rs, rowNum) -> {
-            return new Project(rs.getLong("projectID"),
-                    rs.getDate("projectStartDate"),
-                    rs.getDate("projectEndDate"),
-                    rs.getInt("budgetAllotted"),
-                    rs.getInt("budgetUsed"));
-            //rs.getString("TypeOfProject.CLIENT"));
-        });
+        return getJdbcTemplate().query(GET_PROJECTS_QUERY, new ProjectRowMapper());
     }
 
     @Override
