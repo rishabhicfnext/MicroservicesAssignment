@@ -1,7 +1,5 @@
-package com.user.exception.handler;
+package com.project.exception;
 
-import com.user.exception.UserAlreadyExistException;
-import com.user.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -20,16 +18,16 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Slf4j
-public class UserNotFoundExceptionHandler extends ResponseEntityExceptionHandler {
+public class ProjectExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Object> exception(UserNotFoundException userNotFoundException) {
-        return new ResponseEntity<Object>("User Not Found !!", HttpStatus.NOT_FOUND);
+    @ExceptionHandler(value = ProjectNotFoundException.class)
+    public ResponseEntity<Object> exception(ProjectNotFoundException projectNotFoundException) {
+        return new ResponseEntity<Object>("Project Not Found !!", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = UserAlreadyExistException.class)
-    public ResponseEntity<Object> exception(UserAlreadyExistException userAlreadyExistException) {
-        return new ResponseEntity<Object>("User Already Exist With this Office ID !!", HttpStatus.ALREADY_REPORTED);
+    @ExceptionHandler(value = ProjectAlreadyExistException.class)
+    public ResponseEntity<Object> exception(ProjectAlreadyExistException projectAlreadyExistException) {
+        return new ResponseEntity<Object>("Project Already Exist With this Project Name !!", HttpStatus.ALREADY_REPORTED);
     }
 
     @Override

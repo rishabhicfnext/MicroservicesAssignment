@@ -4,22 +4,26 @@ import com.user.exception.UserAlreadyExistException;
 import com.user.exception.UserNotFoundException;
 import com.user.model.User;
 import com.user.service.impl.UserServiceImpl;
+import com.user.vo.ResponseTemplateVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
     @PostMapping("/createuser")
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
         int isExist = userService.isUserExistByOfficeID(user.getOfficeID());
         if (isExist != 0) {
             throw new UserAlreadyExistException();
@@ -30,7 +34,7 @@ public class UserController {
     }
 
     @PutMapping("/updateuser/{userID}")
-    public ResponseEntity<Object> updateUser(@PathVariable("userID") long userID, @RequestBody User user) {
+    public ResponseEntity<Object> updateUser(@PathVariable("userID") long userID, @Valid @RequestBody User user) {
         boolean isExist = userService.isUserExist(userID);
         if (isExist) {
             user.setUserID(userID);
@@ -72,6 +76,22 @@ public class UserController {
         } else {
             return new ResponseEntity<Object>(userList, HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/getallusersbyprojectid/{projectID}")
+    public ResponseEntity<Object> getAllUsersByProjectID(@PathVariable("projectID") long projectID) {
+        List<User> userList = userService.getUsersByProjectID(projectID);
+        if (userList.isEmpty()) {
+            throw new UserNotFoundException();
+        } else {
+            return new ResponseEntity<Object>(userList, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/getuserwithproject/{projectID}")
+    public ResponseTemplateVO getUserWithProject(@PathVariable("projectID") long projectID) {
+        log.info("Inside getUserWithProject of User Controller");
+        return userService.getUserWithProject(projectID);
     }
 
 }

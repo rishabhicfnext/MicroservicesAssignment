@@ -1,4 +1,4 @@
-package com.project.model;
+package com.user.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,13 +8,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
+
+/**
+ * @author 55683
+ */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Project implements Serializable {
+public class Project {
 
     private Long projectID;
 
@@ -38,11 +41,4 @@ public class Project implements Serializable {
     @NotNull(message = "Project name can't be null")
     private String projectName;
 
-    private long userID;
-
-//    @Enumerated(EnumType.STRING)s
-//    private TypeOfProject typeOfProject;
-//
-//    public Project(long projectID, java.sql.Date projectStartDate, java.sql.Date projectEndDate, int budgetAllotted, int budgetUsed, String string) {
-//    }
 }

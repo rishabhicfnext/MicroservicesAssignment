@@ -3,9 +3,13 @@ package com.user.service.impl;
 import com.user.model.User;
 import com.user.repository.UserRepository;
 import com.user.service.UserService;
+import com.user.vo.Project;
+import com.user.vo.ResponseTemplateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,14 +22,27 @@ public class UserServiceImpl implements UserService {
 //    @Autowired
 //    private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Override
-    public User createUser(User user) {
+    public ResponseTemplateVO getUserWithProject(long userID) {
+        ResponseTemplateVO responseTemplateVO = new ResponseTemplateVO();
+        User user = userRepository.findById(userID).get();
+        Project project = restTemplate.getForObject("http://project-service/project/getbyprojectid/" + user.getProjectID(), Project.class);
+        responseTemplateVO.setUser(user);
+        responseTemplateVO.setProject(project);
+        return responseTemplateVO;
+    }
+
+    @Override
+    public User createUser(@Valid User user) {
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(@Valid User user) {
         userRepository.saveAndFlush(user);
     }
 
@@ -48,12 +65,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersByProjectID(long projectID) {
+        List<User> allUsersBySameProjectID = userRepository.allUsersBySameProjectID(projectID);
+        return allUsersBySameProjectID;
+    }
+
+    @Override
     public boolean isUserExist(long userID) {
         return userRepository.existsById(userID);
     }
 
     @Override
-    public int isUserExistByOfficeID(String officeID) {
+    public int isUserExistByOfficeID(@Valid String officeID) {
         return userRepository.existsByOfficeID(officeID);
     }
 }

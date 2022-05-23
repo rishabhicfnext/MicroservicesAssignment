@@ -1,22 +1,24 @@
-package com.user.model;
+package com.project.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
-@Table(name = "USER")
+/**
+ * @author 55683
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userID;
 
     @NotNull(message = "Username field should not blank")
@@ -48,8 +50,5 @@ public class User {
     @NotBlank(message = "OfficeID field is required !!")
     @Size(min = 2, max = 20, message = "OfficeID should be between 2 - 20 characters !!")
     private String officeID;
-
-    @Min(message = "ProjectID is required", value = 1)
-    private long projectID;
 
 }
