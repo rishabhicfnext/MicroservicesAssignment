@@ -37,54 +37,54 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     public String createTable() {
-        log.info("Inside Create Table method");
+        log.info("Inside Create Table method in project repository impl !!");
         String createTableQuery = "CREATE TABLE IF NOT EXISTS Project (projectid bigint primary key, projectstartdate date, projectenddate date, budgetallotted int, budgetused int, typeofproject varchar(45), projectname varchar(45), userid int not null)";
         int createTable = getJdbcTemplate().update(createTableQuery);
         if (createTable == 0) {
             log.info("Project Table Created Successfully !!");
             return "Project Table Created Successfully !!";
         } else {
-            log.info("Project Table Not Created");
+            log.error("Project Table Not Created");
             return "Project Table Not Created";
         }
     }
 
     @Override
     public Project createProject(@Valid Project project) {
-        log.info("Inside create project method !!");
+        log.info("Inside create project method in project repository impl !!");
         getJdbcTemplate().update(INSERT_PROJECT_QUERY, project.getProjectID(), project.getProjectStartDate(), project.getProjectEndDate(), project.getBudgetAllotted(), project.getBudgetUsed(), project.getTypeOfProject(), project.getProjectName(), project.getUserID());
         return project;
     }
 
     @Override
     public Project updateProject(@Valid Project project) {
-        log.info("Inside update project method !!");
+        log.info("Inside update project method in project repository impl !!");
         getJdbcTemplate().update(UPDATE_PROJECT_BY_ID_QUERY, project.getBudgetUsed(), project.getProjectID());
         return project;
     }
 
     @Override
     public Project fetchProjectById(Long projectId) {
-        log.info("Inside Fetch Project By Id method !!");
+        log.info("Inside Fetch Project By Id method in project repository impl !!");
         return getJdbcTemplate().queryForObject(GET_PROJECT_BY_ID_QUERY, new ProjectRowMapper(), projectId);
     }
 
     @Override
     public List<Project> fetchAllProjects() {
-        log.info("Inside Fetch All Projects method !!");
+        log.info("Inside Fetch All Projects method in project repository impl !!");
         return getJdbcTemplate().query(GET_PROJECTS_QUERY, new ProjectRowMapper());
     }
 
     @Override
     public String deleteProjectById(Long projectId) {
-        log.info("Inside Delete Project By ID method !!");
+        log.info("Inside Delete Project By ID method in project repository impl !!");
         getJdbcTemplate().update(DELETE_PROJECT_BY_ID_QUERY, projectId);
         return "Project got deleted with projectid  : " + projectId;
     }
 
     @Override
     public boolean isProjectExistByProjectName(String projectname) {
-        log.info("Inside is project by name method !!");
+        log.info("Inside isProjectExistByProjectName method in service !!");
         // It will return 1 if record is present
         int count = getJdbcTemplate().queryForObject(IS_PROJECT_EXIST_BY_PROJECT_NAME, new Object[]{projectname}, Integer.class);
         if (count >= 1) {
@@ -95,7 +95,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public boolean isProjectExistByProjectID(Long projectid) {
-        log.info("Inside is project by id method !!");
+        log.info("Inside is project by id method in project repository impl !!");
         // It will return 1 if record is present
         int count = getJdbcTemplate().queryForObject(IS_PROJECT_EXIST_BY_PROJECT_ID, new Object[]{projectid}, Integer.class);
         if (count >= 1) {
@@ -106,11 +106,14 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public ResponseTemplateVO getAllUserWithProject(long projectID) {
+        log.info("Inside get all user with project id method in project repository impl !!");
         ResponseTemplateVO responseTemplateVO = new ResponseTemplateVO();
         Project project = getJdbcTemplate().queryForObject(GET_PROJECT_BY_ID_QUERY, new ProjectRowMapper(), projectID);
-        List<User> userList = (List<User>) restTemplate.getForObject("http://user-service/user/getallusersbyprojectid/" + project.getProjectID(), User.class);
-        responseTemplateVO.setUser(userList);
+        log.info("Project successfully get using project id");
+        User[] userList = (User[]) restTemplate.getForObject("http://user-service/user/getallusersbyprojectid/" + project.getProjectID(), User[].class);
+        log.info("User list successfully get using restTemplate calling !!");
         responseTemplateVO.setProject(project);
+        responseTemplateVO.setUsers(userList);
         return responseTemplateVO;
     }
 }
