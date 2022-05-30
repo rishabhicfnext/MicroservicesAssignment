@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select * from user u where u.projectid=:projectID", nativeQuery = true)
     List<User> allUsersBySameProjectID(long projectID);
+
+    User findByUsername(String username);
 }
