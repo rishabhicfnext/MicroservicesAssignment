@@ -24,6 +24,6 @@ public interface UserService {
 
     int isUserExistByOfficeID(@Valid String username);
 
-    ResponseTemplateVO getUserWithProject(long userID);
+    ResponseTemplateVO getUserWithProject(long userID) throws Exception;
 
 }
