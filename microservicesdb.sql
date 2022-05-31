@@ -8,6 +8,6 @@ select * from user;
 select * from project;
 select * from project where projectname="payback";
 select * from project where userid=3;
-
+select * from user u where u.username = 'rishabh';
 select * from dependent;
 select * from employee;

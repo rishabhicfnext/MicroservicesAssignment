@@ -1,35 +1,36 @@
 package com.springsecurity.service;
 
-import com.springsecurity.model.User;
+import com.springsecurity.model.Login;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private Login login;
 
-    public CustomUserDetails(User user) {
+    public CustomUserDetails(Login login) {
         super();
-        this.user = user;
+        this.login = login;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(login.getRole());
+        return Arrays.asList(simpleGrantedAuthority);
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return login.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return login.getUsername();
     }
 
     @Override

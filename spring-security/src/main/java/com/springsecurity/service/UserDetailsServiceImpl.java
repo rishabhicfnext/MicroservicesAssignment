@@ -1,7 +1,7 @@
 package com.springsecurity.service;
 
-import com.springsecurity.model.User;
-import com.springsecurity.repository.UserRepository;
+import com.springsecurity.model.Login;
+import com.springsecurity.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,20 +9,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private LoginRepository loginRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username);
+        Login login = loginRepository.getUserByUserName(username);
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User Not Found !!");
+        if (login == null) {
+            throw new UsernameNotFoundException("Login Not Found !!");
         }
 
-        return new CustomUserDetails(user);
+        return new CustomUserDetails(login);
     }
 }
