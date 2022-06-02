@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/login")
@@ -19,8 +20,8 @@ public class LoginController {
     private LoginRepository loginRepository;
 
     @PostMapping("/createuser")
-    @ApiOperation(value = "Creating a Login",
-            notes = "Provide a Login request body for creating a Login",
+    @ApiOperation(value = "Creating a User Login",
+            notes = "Provide a Login request body for creating a User Login",
             response = Login.class)
     public Login createUser(@Valid @RequestBody Login login) {
         log.info("Inside create login method in controller !!");
@@ -34,6 +35,17 @@ public class LoginController {
     public List<Login> getAllUsers() {
         log.info("Inside get all user method in controller !!");
         return loginRepository.findAll();
+    }
+
+    @GetMapping("/getuserbyid/{userID}")
+    @ApiOperation(value = "Find User By ID",
+            notes = "Getting a User By ID Specific",
+            response = Login.class)
+    public Login getUserByID(@PathVariable("userID") long userID) {
+        log.info("Inside get user by id method in controller !!");
+        Optional<Login> op = loginRepository.findById(userID);
+        Login login = op.get();
+        return login;
     }
 
 }
