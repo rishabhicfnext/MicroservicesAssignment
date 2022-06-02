@@ -43,11 +43,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                //.antMatchers("/login/**").hasAnyRole("ADMIN", "LOCAL")
-//                .antMatchers("/login/createuser").permitAll()
-//                .antMatchers("/login/getallusers").hasRole("ADMIN")
-//                .antMatchers("/login/getuserbyid/{userID}").hasRole("LOCAL")
-                .antMatchers("/login/**").permitAll()
+//                .antMatchers("/login/**").permitAll()
+                .antMatchers("/login/createuser").permitAll()
+                .antMatchers("/login/getallusers").hasRole("ADMIN")
+                .antMatchers("/login/getuserbyid/{userID}").hasAnyRole("ADMIN", "LOCAL")
                 .antMatchers("http://user-service/user/**").hasRole("ADMIN")
                 .antMatchers("http://project-service/project/**").permitAll()
                 .anyRequest()
