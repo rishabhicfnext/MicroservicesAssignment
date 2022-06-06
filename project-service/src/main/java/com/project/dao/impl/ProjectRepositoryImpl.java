@@ -26,6 +26,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     private static final String IS_PROJECT_EXIST_BY_PROJECT_NAME = "SELECT COUNT(*) FROM PROJECT WHERE projectname=?";
     private static final String IS_PROJECT_EXIST_BY_PROJECT_ID = "SELECT COUNT(*) FROM PROJECT WHERE projectid=?";
 
+    private static final String USER_URL = "http://user-service/user/getallusersbyprojectid/";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -110,7 +112,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
         ResponseTemplateVO responseTemplateVO = new ResponseTemplateVO();
         Project project = getJdbcTemplate().queryForObject(GET_PROJECT_BY_ID_QUERY, new ProjectRowMapper(), projectID);
         log.info("Project successfully get using project id");
-        User[] userList = (User[]) restTemplate.getForObject("http://user-service/user/getallusersbyprojectid/" + project.getProjectID(), User[].class);
+        User[] userList = (User[]) restTemplate.getForObject(USER_URL + project.getProjectID(), User[].class);
         log.info("User list successfully get using restTemplate calling !!");
         responseTemplateVO.setProject(project);
         responseTemplateVO.setUsers(userList);

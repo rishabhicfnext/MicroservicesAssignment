@@ -1,0 +1,577 @@
+{
+	"info": {
+		"_postman_id": "09f6f348-2ddc-462c-8400-ec0b6a0f0841",
+		"name": "Microservice-Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17549170"
+	},
+	"item": [
+		{
+			"name": "user-service (Create-User)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"anuj\",\r\n    \"password\":\"7777\",\r\n    \"company\":\"ICFNEXT\",\r\n    \"address\":\"delhi\",\r\n    \"role\":\"ROLE_LOCAL\",\r\n    \"officeID\":\"55650\",\r\n    \"projectID\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9002/user/createuser",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"createuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-service (Update-User)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Vinod\",\r\n    \"password\":\"7777\",\r\n    \"address\":\"bangalore\",\r\n    \"company\":\"ICFNEXT\",\r\n    \"role\":\"local\",\r\n    \"projectID\":3,\r\n    \"officeID\":\"55684\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9002/user/updateuser/3",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"updateuser",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-service (Get User By ID)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/user/getuserbyid/2",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"getuserbyid",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-service (Get All User By Project ID)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/user/getallusersbyprojectid/3",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"getallusersbyprojectid",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-service (Get All Users)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/user/getallusers",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"getallusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-service (Delete User By ID)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/user/deleteuser/7",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"deleteuser",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project-service (Create-Project)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectID\":5,\r\n    \"projectStartDate\":\"2022-02-22\",\r\n    \"projectEndDate\":\"2022-05-12\",\r\n    \"budgetAllotted\": 450000,\r\n    \"budgetUsed\": 75000,\r\n    \"typeOfProject\": \"INTERNAL\",\r\n    \"projectName\": \"Asian\",\r\n    \"userID\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9001/project/createproject",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"project",
+						"createproject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project-service (Update-Project)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectID\":1,\r\n    \"projectStartDate\":\"2022-02-22\",\r\n    \"projectEndDate\":\"2022-05-12\",\r\n    \"budgetAllotted\": 450000,\r\n    \"budgetUsed\": 88000,\r\n    \"typeOfProject\": \"INTERNAL\",\r\n    \"projectName\": \"asian\",\r\n    \"userID\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9001/project/updateproject/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"project",
+						"updateproject",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project-service (Get Project By ID)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/project/getbyprojectid/3",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"project",
+						"getbyprojectid",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project-service (Get All Projects)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/project/allprojects",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"project",
+						"allprojects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project-service (Delete Project By ID)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/project/deletebyprojectid/5",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"project",
+						"deletebyprojectid",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-service & project-service (Rest-Template calling)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/user/getuserwithproject/2",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"user",
+						"getuserwithproject",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "project-service & user-service (Rest Template calling)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:9001/project/getallusersbyprojectid/3",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"project",
+						"getallusersbyprojectid",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger Docs for User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9002/v2/api-docs?group=user-services",
+					"host": [
+						"localhost"
+					],
+					"port": "9002",
+					"path": [
+						"v2",
+						"api-docs"
+					],
+					"query": [
+						{
+							"key": "group",
+							"value": "user-services"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger Docs for Project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9001/v2/api-docs?group=project-services",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"v2",
+						"api-docs"
+					],
+					"query": [
+						{
+							"key": "group",
+							"value": "project-services"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger Docs for Spring Security Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "4444",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "rishab",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/v2/api-docs?group=security-service",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"v2",
+						"api-docs"
+					],
+					"query": [
+						{
+							"key": "group",
+							"value": "security-service"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spring-Security-Service Create User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"vinay\",\r\n    \"password\":\"8888\",\r\n    \"role\":\"ROLE_LOCAL\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/login/createuser",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"login",
+						"createuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spring-Security-Service Get All",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "4444",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "rishab",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/login/getallusers",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"login",
+						"getallusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spring-Security-Service Get By ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "vinod",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "7777",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/login/getuserbyid/7",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"login",
+						"getuserbyid",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8999/user/getallusers",
+					"host": [
+						"localhost"
+					],
+					"port": "8999",
+					"path": [
+						"user",
+						"getallusers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8999/project/allprojects",
+					"host": [
+						"localhost"
+					],
+					"port": "8999",
+					"path": [
+						"project",
+						"allprojects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8999/user/getuserwithproject/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8999",
+					"path": [
+						"user",
+						"getuserwithproject",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8999/project/getallusersbyprojectid/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8999",
+					"path": [
+						"project",
+						"getallusersbyprojectid",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

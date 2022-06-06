@@ -2,6 +2,10 @@ server:
   port: 9000
 
 spring:
+  security:
+    user:
+      name: rishabh
+      password: 1234
   datasource:
     url: jdbc:mysql://localhost:3306/microservices
     username: root
@@ -15,22 +19,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
   application:
-    name: security-service-gateway
+    name: security-service
   main:
     allow-circular-references: true
-    web-application-type: reactive
-    allow-bean-definition-overriding: true
-  cloud:
-    gateway:
-      routes:
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/user/**
-        - id: project-service
-          uri: lb://project-service
-          predicates:
-            - Path=/project/**
 
 eureka:
   instance:

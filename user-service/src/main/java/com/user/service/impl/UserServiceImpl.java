@@ -7,6 +7,7 @@ import com.user.vo.Project;
 import com.user.vo.ResponseTemplateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,11 +22,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private RestTemplate restTemplate;
+
+    private static final String PROJECT_URL = "http://project-service/project/getbyprojectid/";
 
     @Override
     public ResponseTemplateVO getUserWithProject(long userID) {
@@ -33,7 +36,7 @@ public class UserServiceImpl implements UserService {
         ResponseTemplateVO responseTemplateVO = new ResponseTemplateVO();
         User user = userRepository.findById(userID).get();
         log.info("User find by this id : " + userID);
-        Project project = restTemplate.getForObject("http://project-service/project/getbyprojectid/" + user.getProjectID(), Project.class);
+        Project project = restTemplate.getForObject(PROJECT_URL + user.getProjectID(), Project.class);
         log.info("Calling project-service microservice using RestTemplate !!");
         log.info("Project get with this user id : " + userID);
         responseTemplateVO.setUser(user);
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(@Valid User user) {
         log.info("Inside create user method in service !!");
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
